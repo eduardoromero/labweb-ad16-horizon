@@ -9,12 +9,17 @@
 </template>
 
 <script>
+  import Horizon from '@horizon/client';
+  import Vue from 'vue';
+
   import TopMenu from './components/TopMenu.vue';
   import PageFooter from './components/PageFooter.vue';
 
   export default {
     data () {
       return {
+        horizon: Horizon({host: 'localhost:8181'}),
+        eventBus: new Vue(),
         msg: 'Wazzup | Horizon | RethinkDB'
       }
     },
