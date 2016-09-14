@@ -53,15 +53,7 @@
       listenMessages() {
         this.invoicesService.limit(10).watch()
           .subscribe(invoices => {
-            /* trying to be slow here */
-            this.isLoading = true;
-            this.invoices = [];
-
-            invoices.forEach((invoice) => {
-              this.invoices.push(invoice);
-            });
-
-            this.isLoading = false;
+            this.invoices = [...invoices];
           },
           error => console.log(error)
         );
