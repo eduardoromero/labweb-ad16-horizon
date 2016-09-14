@@ -12,9 +12,6 @@
 <script>
   export default{
     name: 'InvoiceListItem',
-    data(){
-      return {}
-    },
     props: {
       invoice: {
         'type': Object,
