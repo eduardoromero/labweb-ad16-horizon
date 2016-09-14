@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router';
-import Horizon from '@horizon/client';
 
 import App from './App.vue';
 import Home from './components/Home.vue';
@@ -35,10 +34,6 @@ const router = new VueRouter({
 
 new Vue(Vue.util.extend({
   router,
-  data: {
-    horizon: Horizon({host: 'localhost:8181'}),
-    eventBus: new Vue()
-  }
 }, App)).$mount('#app');
 
 router.beforeEach(function (transition, redirect, next) {
