@@ -1,5 +1,6 @@
 <template>
   <tr>
+    <td>{{ invoice.id }}</td>
     <td>{{ invoice.date }}</td>
     <td>{{ invoice.name}}</td>
     <td>{{ invoice.email}}</td>

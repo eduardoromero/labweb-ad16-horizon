@@ -9,6 +9,7 @@
       <table class="ui single line stripped table">
         <thead>
           <tr>
+            <th>#</th>
             <th>Date</th>
             <th>Name</th>
             <th>E-mail address</th>

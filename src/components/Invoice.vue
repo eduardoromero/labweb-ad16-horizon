@@ -434,8 +434,13 @@
         this.isLoading = true;
         /* add timestamps */
         this.invoice.date = moment()
-                .format('MMMM D YYYY');
-        this.invoice.ts = new Date();
+                .format('MMMM D, YYYY');
+
+        if(this.mode == 'create') {
+          this.invoice.ts = new Date();
+        } else {
+          this.invoice.updated = new Date();
+        }
 
         this.invoicesService
             .upsert(this.invoice)
@@ -443,6 +448,8 @@
                     (id) => {
                       console.log("Invoice.id:", id);
                       this.isLoading = false;
+
+                      /* TODO: Redirect to /invoices */
                     },
                     (err) => {
                       console.error(err);
