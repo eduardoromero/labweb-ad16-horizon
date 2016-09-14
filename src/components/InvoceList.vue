@@ -5,7 +5,7 @@
       Invoices
     </h1>
 
-    <div class="ui basic segment">
+    <div class="ui basic segment" :class="{ 'loading' : isLoading }">
       <table class="ui single line stripped table">
         <thead>
         <tr>
@@ -56,10 +56,40 @@
 </style>
 <script>
   export default{
+    name: 'InvoiceList',
     data(){
       return {
-        msg: 'hello vue'
+        invoicesService: this.$root.horizon('invoices'),
+        isLoading: false,
+        invoices: []
       }
+    },
+    methods: {
+      listenMessages() {
+        this.invoicesService.limit(10).watch()
+          .subscribe(invoices => {
+            this.invoices = [...invoices];
+          },
+          error => console.log(error)
+        );
+      }
+    },
+    created() {
+      this.isLoading = true;
+
+      this.$root.horizon.onReady()
+        .subscribe(() => {
+          console.log("Connected to Horizon server");
+
+          this.isLoading = false;
+          this.listenMessages();
+        }
+      );
+
+
+      this.$root.horizon.onDisconnected()
+         .subscribe(() => console.log("Disconnected from Horizon server")
+      );
     },
     components: {}
   }
