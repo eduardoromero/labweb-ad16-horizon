@@ -42,7 +42,7 @@
     data(){
       return {
         invoicesService: this.$root.horizon('invoices'),
-        isLoading: false,
+        isLoading: true,
         invoices: []
       }
     },
@@ -60,8 +60,6 @@
       }
     },
     created() {
-      this.isLoading = true;
-
       this.$root.horizon.onReady()
         .subscribe(() => {
           console.log("Connected to Horizon server");

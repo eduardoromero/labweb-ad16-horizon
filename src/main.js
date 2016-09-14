@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import Home from './components/Home.vue';
 import InvoiceList from './components/InvoceList.vue';
+import Invoice from './components/Invoice.vue';
 import NotFound from './components/404.vue';
 import './filters';
 
@@ -18,6 +19,16 @@ const routes = [
     name: 'invoices',
     path: '/invoices',
     component: InvoiceList
+  },
+  {
+    name: 'new_invoice',
+    path: '/new_invoice',
+    component: Invoice
+  },
+  {
+    name: 'edit_invoice',
+    path: '/new_invoice/:id',
+    component: Invoice
   },
   {
     name: 'notfound',
