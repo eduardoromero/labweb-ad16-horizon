@@ -1,10 +1,11 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import App from './App.vue';
 import Home from './components/Home.vue';
 import InvoiceList from './components/InvoceList.vue';
 import NotFound from './components/404.vue';
+import './filters';
 
 Vue.use(VueRouter);
 const routes = [

@@ -18,10 +18,13 @@
   export default {
     data () {
       return {
-        horizon: Horizon({host: 'localhost:8181'}),
+        horizon: Horizon({host: '127.0.0.1:8181'}),
         eventBus: new Vue(),
         msg: 'Wazzup | Horizon | RethinkDB'
       }
+    },
+    created() {
+      this.horizon.connect();
     },
     components: {
       TopMenu: TopMenu,

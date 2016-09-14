@@ -8,36 +8,16 @@
     <div class="ui basic segment" :class="{ 'loading' : isLoading }">
       <table class="ui single line stripped table">
         <thead>
-        <tr>
-          <th>Date</th>
-          <th>Name</th>
-          <th>E-mail address</th>
-          <th>Invoiced</th>
-          <th class="text right">Total</th>
-        </tr>
+          <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>E-mail address</th>
+            <th class="text centered">Invoiced</th>
+            <th class="text right">Total</th>
+          </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>John Lilki</td>
-          <td>September 14, 2013</td>
-          <td>jhlilk22@yahoo.com</td>
-          <td class="text centered"><i class="ui green check circle icon" /></td>
-          <td class="text right">$ 1,500.00</td>
-        </tr>
-        <tr>
-          <td>Jamie Harington</td>
-          <td>January 11, 2014</td>
-          <td>jamieharingonton@yahoo.com</td>
-          <td class="text centered"><i class="ui green check circle icon" /></td>
-          <td class="text right">$ 5,600.00</td>
-        </tr>
-        <tr>
-          <td>Jill Lewis</td>
-          <td>May 11, 2014</td>
-          <td>jilsewris22@yahoo.com</td>
-          <td class="text centered"><i class="ui red remove icon" /></td>
-          <td class="text right">$ 11,200.00</td>
-        </tr>
+          <Invoice v-for="invoice in invoices" v-bind:invoice="invoice" />
         </tbody>
       </table>
     </div>
@@ -55,6 +35,8 @@
   }
 </style>
 <script>
+  import InvoiceListItem from './InvoiceListItem.vue';
+
   export default{
     name: 'InvoiceList',
     data(){
@@ -64,11 +46,22 @@
         invoices: []
       }
     },
+    components: {
+      Invoice: InvoiceListItem
+    },
     methods: {
       listenMessages() {
         this.invoicesService.limit(10).watch()
           .subscribe(invoices => {
-            this.invoices = [...invoices];
+            /* trying to be slow here */
+            this.isLoading = true;
+            this.invoices = [];
+
+            invoices.forEach((invoice) => {
+              this.invoices.push(invoice);
+            });
+
+            this.isLoading = false;
           },
           error => console.log(error)
         );
@@ -86,11 +79,9 @@
         }
       );
 
-
       this.$root.horizon.onDisconnected()
          .subscribe(() => console.log("Disconnected from Horizon server")
       );
     },
-    components: {}
   }
 </script>
